@@ -15,6 +15,15 @@
     overflow: auto;
 }
 
+.saucesAndMainItem {
+    display: flex;
+    align-items: center;
+}
+
+.constructorElementContainer {
+    display: contents
+}
+
 .saucesAndMain::-webkit-scrollbar {
     width: 5px;
 }

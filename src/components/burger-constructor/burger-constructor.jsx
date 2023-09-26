@@ -18,9 +18,9 @@ export function BurgerConstructor({ingredients}) {
                 </div>
                 <div className={style.saucesAndMain}>
                     {ingredients.map(ingredient => (
-                        <div style={{display: 'flex', alignItems: 'center'}} key={ingredient._id}>
+                        <div className={style.saucesAndMainItem} key={ingredient._id}>
                             <DragIcon type="primary"/>
-                            <div className="pr-1 pl-1" style={{display: "contents"}}>
+                            <div className={`${style.constructorElementContainer} pr-1 pl-1`}>
                                 <ConstructorElement
                                     text={ingredient.name}
                                     price={ingredient.price}
