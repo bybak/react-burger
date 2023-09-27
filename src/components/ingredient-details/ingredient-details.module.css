@@ -1,0 +1,10 @@
+.ingredientDetails {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.params {
+    display: flex;
+    justify-content: space-between;
+}

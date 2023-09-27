@@ -2,9 +2,13 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import style from './burger-ingredients-item.module.css'
 import {ingredientsPropTypes} from "../../utils/propTypes";
 
-export function BurgerIngredientsItem({ ingredient }) {
+export function BurgerIngredientsItem({ ingredient, handleIngredientClick }) {
+    const ingredientClick = (ingredient) => {
+        handleIngredientClick(ingredient)
+    }
+
     return (
-        <div className={style.mainDiv}>
+        <div className={style.mainDiv} onClick={() => ingredientClick(ingredient)}>
             <Counter count={1} size="default"/>
             <img src={ingredient.image} alt={ingredient.name}/>
             <div className={style.price}>

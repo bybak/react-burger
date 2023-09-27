@@ -3,7 +3,7 @@ import {ConstructorElement, DragIcon, Button, CurrencyIcon} from "@ya.praktikum/
 import PropTypes from 'prop-types';
 import {ingredientsPropTypes} from "../../utils/propTypes";
 
-export function BurgerConstructor({ingredients}) {
+export function BurgerConstructor({ingredients, handleOrderClick}) {
     return (
         <section className={style.mainDiv}>
             <div className={style.constructorDiv}>
@@ -47,7 +47,7 @@ export function BurgerConstructor({ingredients}) {
                         <CurrencyIcon type="primary"/>
                     </div>
                     <div className="pl-10">
-                        <Button htmlType="button" type="primary" size="medium">
+                        <Button htmlType="button" type="primary" size="medium" onClick={handleOrderClick}>
                             Оформить заказ
                         </Button>
                     </div>
