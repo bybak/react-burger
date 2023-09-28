@@ -7,19 +7,16 @@ import {Modal} from "../modal/modal";
 import {IngredientDetails} from '../ingredient-details/ingredient-details'
 import {OrderDetails} from '../order-details/order-details'
 import {api} from "../../utils/api";
+import {useModal} from "../../hooks/useModal";
 
 function App() {
     const [data, setData] = React.useState([]);
-    const [isOpenModal, setIsOpenModal] = React.useState(false);
+    const { isModalOpen, openModal, closeModal } = useModal();
     const [ingredient, setIngredient] = React.useState(null);
 
-    const closeModal = () => {
+    const closeModalWindow = () => {
         setIngredient(null)
-        setIsOpenModal(false)
-    }
-
-    const openModal = () => {
-        setIsOpenModal(true)
+        closeModal()
     }
 
     const handleIngredientClick = (ingredient) => {
@@ -34,7 +31,7 @@ function App() {
     React.useEffect(() => {
         api.getIngredients()
             .then(data => setData(data.data))
-            .catch(error => console.warn(error))
+            .catch(console.error)
     }, [])
 
     return (
@@ -44,7 +41,7 @@ function App() {
                 <BurgerIngredients ingredients={data} handleIngredientClick={handleIngredientClick}/>
                 <BurgerConstructor handleOrderClick={handleOrderClick} ingredients={data.filter(ingredient => ingredient.type !== 'bun')}/>
             </main>
-            {isOpenModal && <Modal header={ingredient ? 'Детали ингредиента' : ''} onClose={closeModal}>{
+            {isModalOpen && <Modal header={ingredient ? 'Детали ингредиента' : ''} onClose={closeModalWindow}>{
                 ingredient ? <IngredientDetails ingredient={ingredient}/> : <OrderDetails/>
             }</Modal>}
         </div>

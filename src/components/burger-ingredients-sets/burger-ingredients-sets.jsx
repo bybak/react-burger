@@ -23,5 +23,6 @@ export function BurgerIngredientsSets({ingredients, handleIngredientClick}) {
 }
 
 BurgerIngredientsSets.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired
+    ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
+    handleIngredientClick: PropTypes.func.isRequired
 }
