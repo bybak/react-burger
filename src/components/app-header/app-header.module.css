@@ -1,0 +1,43 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    width: 1320px;
+    justify-content: space-between;
+}
+
+.list > * {
+    width: 100%;
+}
+
+.leftSide {
+    display: flex;
+}
+
+.link {
+    display: flex;
+    text-decoration: none;
+}
+
+.logo {
+    text-align: center;
+}
+
+.account {
+    display: flex;
+    justify-items: end;
+    justify-content: end;
+}
+
+

@@ -1,0 +1,10 @@
+.mainDiv {
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+}
