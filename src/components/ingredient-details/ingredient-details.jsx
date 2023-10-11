@@ -1,7 +1,8 @@
 import style from './ingredient-details.module.css'
-import {ingredientsPropTypes} from "../../utils/propTypes";
+import {useSelector} from "react-redux";
 
-export function IngredientDetails({ingredient}) {
+export function IngredientDetails() {
+    const ingredient = useSelector(state => state.ingredientDetails.ingredientDetails)
     return (
         <div className={style.ingredientDetails}>
             <img src={ingredient.image_large} alt={ingredient.name}/>
@@ -29,5 +30,4 @@ export function IngredientDetails({ingredient}) {
 }
 
 IngredientDetails.propTypes = {
-    ingredient: ingredientsPropTypes.isRequired
 }
