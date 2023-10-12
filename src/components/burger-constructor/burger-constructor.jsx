@@ -98,7 +98,7 @@ export function BurgerConstructor({handleOrderClick}) {
                             />
                         </div>
                 )}
-                <MakeOrder handleOrderClick={handleOrderClick}/>
+                {buns.length > 0 ? <MakeOrder handleOrderClick={handleOrderClick}/> : null}
             </div>
         </section>
     )

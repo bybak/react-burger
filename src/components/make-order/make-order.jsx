@@ -7,7 +7,10 @@ export function MakeOrder({handleOrderClick}) {
     const buns = useSelector(state => state.burgerConstructor.bunsList)
     const main = useSelector(state => state.burgerConstructor.mainList)
 
-    const totalPrice = buns.reduce((acc, {price}) => acc + price, 0) * 2 + main.reduce((acc, {price}) => acc + price, 0)
+    const totalPrice = useMemo(() =>
+        buns.reduce((acc, {price}) => acc + price, 0) * 2 + main.reduce((acc, {price}) => acc + price, 0),
+        [buns, main]
+    )
 
     return (
         <div className={`${style.order} pt-10`}>

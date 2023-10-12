@@ -7,8 +7,10 @@ export const GET_BURGER_INGREDIENTS_FAILURE = 'GET_BURGER_INGREDIENTS_FAILURE'
 export const getBurgerIngredientsSuccess = (data) => ({type: GET_BURGER_INGREDIENTS_SUCCESS, payload: data})
 
 export function getBurgerIngredients() {
-    return (dispatch) =>
+    return (dispatch) => {
+        dispatch({type: GET_BURGER_INGREDIENTS_REQUEST});
         api.getIngredients()
-            .then(({ data }) => dispatch(getBurgerIngredientsSuccess(data)))
-            .catch(console.error)
+            .then(({data}) => dispatch(getBurgerIngredientsSuccess(data)))
+            .catch(() => dispatch({type: GET_BURGER_INGREDIENTS_FAILURE}))
+    }
 }
