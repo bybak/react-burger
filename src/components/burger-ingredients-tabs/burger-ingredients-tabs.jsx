@@ -1,21 +1,23 @@
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredient-tabs.module.css'
 import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {scrollIngredients, setActiveTab} from "../../services/actions/burger-ingredients-scroll";
 
 export function BurgerIngredientsTabs() {
-    const [current, setCurrent] = React.useState('bun')
 
-    const setTab = (tab) => {
-        setCurrent(tab);
-        const element = document.getElementById(tab);
-        if (element) element.scrollIntoView({ behavior: "smooth" })
+    const dispatch = useDispatch()
+    const current = useSelector(state => state.scrollIngredients.current)
+    const setCurrent = (value) => {
+        dispatch(setActiveTab(value))
+        dispatch(scrollIngredients(value))
     }
 
     return (
         <div className={style.tabs}>
-            <Tab active={current === 'bun'} value="bun" onClick={setTab}>Булки</Tab>
-            <Tab active={current === 'sauce'} value="sauce" onClick={setTab}>Соусы</Tab>
-            <Tab active={current === 'main'} value="main" onClick={setTab}>Начинки</Tab>
+            <Tab active={current === 'bun'} value="bun" onClick={setCurrent}>Булки</Tab>
+            <Tab active={current === 'sauce'} value="sauce" onClick={setCurrent}>Соусы</Tab>
+            <Tab active={current === 'main'} value="main" onClick={setCurrent}>Начинки</Tab>
         </div>
     )
 }

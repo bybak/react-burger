@@ -9,8 +9,10 @@ class Api {
         return fetch(
             `${this.baseUrl}/ingredients`,
             {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
             }
             ).then(response => {
                 if (!response.ok) {
@@ -19,6 +21,25 @@ class Api {
 
                 return response.json()
             })
+    }
+
+    getOrderDetails (ingredients) {
+        return fetch(
+            `${this.baseUrl}/orders`,
+            {
+                    method: 'POST',
+                    body: JSON.stringify({ingredients: ingredients}),
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    }
+                }
+        ).then(response => {
+            if (!response.ok) {
+                return Promise.reject(`Error: ${response.status}`)
+            }
+
+            return response.json()
+        })
     }
 }
 
