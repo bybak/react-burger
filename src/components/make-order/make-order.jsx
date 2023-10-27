@@ -1,9 +1,10 @@
+import React from 'react';
 import style from "../burger-constructor/burger-constructor.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
 import {useMemo} from "react";
+import { useSelector } from 'react-redux';
 
-export function MakeOrder({handleOrderClick}) {
+export function MakeOrder({ handleOrderClick }) {
     const buns = useSelector(state => state.burgerConstructor.bunsList)
     const main = useSelector(state => state.burgerConstructor.mainList)
 
@@ -21,7 +22,7 @@ export function MakeOrder({handleOrderClick}) {
                 <CurrencyIcon type="primary"/>
             </div>
             <div className="pl-10">
-                <Button htmlType="button" type="primary" size="medium" onClick={handleOrderClick}>
+                <Button htmlType="submit" type="primary" size="medium" onClick={handleOrderClick}>
                     Оформить заказ
                 </Button>
             </div>

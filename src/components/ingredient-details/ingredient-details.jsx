@@ -1,9 +1,19 @@
 import style from './ingredient-details.module.css'
 import {useSelector} from "react-redux";
+import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 
 export function IngredientDetails() {
-    const ingredient = useSelector(state => state.ingredientDetails.ingredientDetails)
+    const ingredients = useSelector(state => state.burgerIngredients.burgerIngredients);
+
+    const { id } = useParams();
+    const ingredient = useMemo(
+        () => ingredients.find(item => item._id === id),
+        [ingredients, id],
+    );
+
     return (
+        ingredient &&
         <div className={style.ingredientDetails}>
             <img src={ingredient.image_large} alt={ingredient.name}/>
             <div className="text text_type_main-medium pt-4">{ingredient.name}</div>
