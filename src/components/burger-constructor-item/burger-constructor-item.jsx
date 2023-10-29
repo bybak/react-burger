@@ -23,7 +23,7 @@ export function BurgerConstructorItem({element, id, index}) {
         accept: 'card',
         collect (monitor) {
             return {
-                handlerId: monitor.getHandlerId
+                handlerId: monitor.getHandlerId()
             }
         },
         hover(item, monitor) {

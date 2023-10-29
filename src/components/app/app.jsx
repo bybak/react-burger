@@ -54,7 +54,7 @@ export default function App() {
 
             {state && (
                 <Routes>
-                    <Route path="/ingredients/:id" element={openIngredientDetailsModal && (
+                    <Route path="/ingredients/:id" element={(
                         <Modal onClose={closeIngredientsModal} header='Детали ингредиента'>
                             <IngredientDetails />
                         </Modal>

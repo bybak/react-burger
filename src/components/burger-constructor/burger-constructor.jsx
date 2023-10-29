@@ -121,7 +121,7 @@ export function BurgerConstructor() {
                 )}
                 {buns.length > 0 ? <MakeOrder handleOrderClick={handleOrderClick}/> : null}
                 {openModal && (
-                    <Modal onClose={closeModal}>
+                    <Modal onClose={closeModal} header=''>
                         <OrderDetails />
                     </Modal>
                 )}
