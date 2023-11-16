@@ -5,6 +5,7 @@ import {useDrag, useDrop} from "react-dnd";
 import style from "../burger-constructor-item/burger-constructor-item.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TBurgerConstructorElement, TIngredientType} from "../../utils/types";
+import { Identifier } from "dnd-core";
 
 export const BurgerConstructorItem: FC<TBurgerConstructorElement> = ({element, id, index}) => {
     const ref = useRef(null)
@@ -18,14 +19,20 @@ export const BurgerConstructorItem: FC<TBurgerConstructorElement> = ({element, i
         dispatch(deleteIngredient(element))
     }
 
-    const [, drop] = useDrop({
+    const [{handlerId}, drop] = useDrop<
+        {
+            ingredient: TBurgerConstructorElement;
+            index: number;
+        },
+        unknown,
+        { handlerId: Identifier | null }
+        >({
         accept: 'card',
         collect (monitor) {
             return {
                 handlerId: monitor.getHandlerId()
             }
         },
-        // @ts-ignore
         hover(item: {index: number}, monitor) {
             if (!ref.current) {
                 return
@@ -71,7 +78,7 @@ export const BurgerConstructorItem: FC<TBurgerConstructorElement> = ({element, i
     drag(drop(ref))
 
     return (
-        <div style={{...style, opacity}} className={style.saucesAndMainItem} key={element.id} ref={ref}>
+        <div style={{...style, opacity}} className={style.saucesAndMainItem} key={element.id} ref={ref} data-handler-id={handlerId}>
             <DragIcon type="primary"/>
             <div className={`${style.constructorElementContainer} pr-1 pl-1`}>
                 <ConstructorElement
