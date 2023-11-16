@@ -1,69 +1,67 @@
-import React from 'react';
-import {AppHeader} from "../app-header/app-header";
-import {BurgerIngredients} from "../burger-ingredients/burger-ingredients";
-import {BurgerConstructor} from "../burger-constructor/burger-constructor";
-import styles from "./app.module.css"
-import {Modal} from "../modal/modal";
-import {IngredientDetails} from '../ingredient-details/ingredient-details'
-import {OrderDetails} from '../order-details/order-details'
-import {useModal} from "../../hooks/useModal";
-import {useDispatch, useSelector} from "react-redux";
-import {getBurgerIngredients} from "../../services/actions/burger-ingredients";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {getOrderDetails} from "../../services/actions/order-details";
-import {deleteIngredientDetails} from "../../services/actions/ingredient-details";
+import React, { useCallback } from 'react';
+import styles from './app.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppHeader } from '../app-header/app-header';
+import { Modal } from '../modal/modal';
+import { IngredientDetails } from '../ingredient-details/ingredient-details';
+import { getBurgerIngredients } from '../../services/actions/burger-ingredients';
+import { deleteIngredientDetails } from '../../services/actions/ingredient-details';
+import {Routes, Route, useLocation, Navigate} from 'react-router-dom';
+import { Registration } from '../../pages/registration';
+import { Authorization } from '../../pages/authorization';
+import { ForgotPassword } from '../../pages/forgot-password';
+import { ResetPassword } from '../../pages/reset-password';
+import { Profile } from '../../pages/profile';
+import { Main } from '../../pages/main';
+import { IngredientInfo } from '../../pages/ingredient-info';
+import { ProtectedRoute } from '../protected-route/protected-route';
+import { Feed } from '../../pages/feed';
+import { useNavigate } from 'react-router-dom';
 
-function App() {
-    const { isModalOpen, openModal, closeModal } = useModal();
-    const [ingredient, setIngredient] = React.useState(null);
-
-    const closeModalWindow = () => {
-        setIngredient(null)
-        closeModal()
-    }
+export default function App() {
 
     const dispatch = useDispatch();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const state = location?.state?.backgroundLocation;
 
     React.useEffect(() => {
         dispatch(getBurgerIngredients())
     }, [dispatch])
 
-    const buns = useSelector(state => state.burgerConstructor.bunsList)
-    const main = useSelector(state => state.burgerConstructor.mainList)
-    const ingredients = ([...buns.map((ingredient => ingredient._id)), ...main.map(ingredient => ingredient._id)])
-    const openIngredientsDetailsModal = useSelector(state => !!state.ingredientDetails.ingredientDetails)
 
-    const handleOrderClick = () => {
-        openModal()
-        dispatch(getOrderDetails(ingredients))
-    }
-
-    const closeIngredientsModal = () => {
+    const openIngredientDetailsModal = useSelector(state => !!state.ingredientDetails.ingredientDetails);
+    const closeIngredientsModal = useCallback(() => {
         dispatch(deleteIngredientDetails())
-    }
+        navigate('/')
+    }, [dispatch])
+
 
     return (
-        <DndProvider backend={HTML5Backend}>
-            <div className="App">
-                <AppHeader/>
-                <main className={styles.main}>
-                    <BurgerIngredients/>
-                    <BurgerConstructor handleOrderClick={handleOrderClick}/>
-                </main>
-                {openIngredientsDetailsModal && (
-                    <Modal onClose={closeIngredientsModal} header="Детали ингредиента">
-                        <IngredientDetails/>
-                    </Modal>
-                )}
-                {isModalOpen && (
-                    <Modal header="" onClose={closeModalWindow}>
-                        <OrderDetails/>
-                    </Modal>
-                )}
-            </div>
-        </DndProvider>
-    );
-}
+        <>
+            <AppHeader />
 
-export default App;
+            <Routes location={state || location}>
+                <Route path="/" element={<Main/>} />
+                <Route path="/register" element={<Registration/>} />
+                <Route path="/login" element={<Authorization/>} />
+                <Route path="/forgot-password" element={<ForgotPassword/>} />
+                <Route path="/reset-password" element={<ResetPassword/>} />
+                <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
+                <Route path="/feed" element={<ProtectedRoute><Feed/></ProtectedRoute>} />
+                <Route path="/ingredients/:id" element={<IngredientInfo />}/>
+            </Routes>
+
+            {state && (
+                <Routes>
+                    <Route path="/ingredients/:id" element={(
+                        <Modal onClose={closeIngredientsModal} header='Детали ингредиента'>
+                            <IngredientDetails />
+                        </Modal>
+                    )}>
+                    </Route>
+                </Routes>
+            )}
+        </>
+    )
+}
