@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 export function Feed() {
 
-    const authorization = useSelector((state) => state.userAuthorization.authorization);
+    const authorization = useSelector((state: any) => state.userAuthorization.authorization);
 
     if (!authorization) {
         return (

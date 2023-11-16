@@ -6,7 +6,7 @@ import { Modal } from '../modal/modal';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { getBurgerIngredients } from '../../services/actions/burger-ingredients';
 import { deleteIngredientDetails } from '../../services/actions/ingredient-details';
-import {Routes, Route, useLocation, Navigate} from 'react-router-dom';
+import {Routes, Route, useLocation} from 'react-router-dom';
 import { Registration } from '../../pages/registration';
 import { Authorization } from '../../pages/authorization';
 import { ForgotPassword } from '../../pages/forgot-password';
@@ -26,11 +26,11 @@ export default function App() {
     const state = location?.state?.backgroundLocation;
 
     React.useEffect(() => {
+        // @ts-ignore
         dispatch(getBurgerIngredients())
     }, [dispatch])
 
 
-    const openIngredientDetailsModal = useSelector(state => !!state.ingredientDetails.ingredientDetails);
     const closeIngredientsModal = useCallback(() => {
         dispatch(deleteIngredientDetails())
         navigate('/')

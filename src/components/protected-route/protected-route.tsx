@@ -1,9 +1,10 @@
-import { Navigate, useLocation } from "react-router-dom";
+import {Navigate, RouteProps, useLocation} from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
+import {FC} from "react";
 
-export const ProtectedRoute = ({ children, anonymous = false }) => {
-    const authorization = useSelector((state) => state.userAuthorization.authorization);
+export const ProtectedRoute: FC<RouteProps | any> = ({ children, anonymous = false }) => {
+    const authorization = useSelector((state: any) => state.userAuthorization.authorization);
     const location = useLocation();
 
     const from = location.state?.from || '/';

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {FC} from 'react';
 import style from "../burger-constructor/burger-constructor.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useMemo} from "react";
 import { useSelector } from 'react-redux';
+import {TOrderRegistration} from "../../utils/types";
 
-export function MakeOrder({ handleOrderClick }) {
-    const buns = useSelector(state => state.burgerConstructor.bunsList)
-    const main = useSelector(state => state.burgerConstructor.mainList)
+export const MakeOrder: FC<TOrderRegistration> = ({ handleOrderClick }) => {
+    const buns = useSelector((state: any) => state.burgerConstructor.bunsList)
+    const main = useSelector((state: any) => state.burgerConstructor.mainList)
 
     const totalPrice = useMemo(() =>
-        buns.reduce((acc, {price}) => acc + price, 0) * 2 + main.reduce((acc, {price}) => acc + price, 0),
+        // @ts-ignore
+        buns.reduce((acc: number, {price}) => acc + price, 0) * 2 + main.reduce((acc: number, {price}) => acc + price, 0),
         [buns, main]
     )
 

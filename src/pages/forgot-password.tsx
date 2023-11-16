@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FormEventHandler} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './pages.module.css';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,15 +9,16 @@ export function ForgotPassword() {
 
     const dispatch = useDispatch();
 
-    const success = useSelector((state) => state.forgotPassword.success);
-    const authorization = useSelector((state) => state.userAuthorization.authorization);
+    const success = useSelector((state: any) => state.forgotPassword.success);
+    const authorization = useSelector((state: any) => state.userAuthorization.authorization);
 
     const [value, setValue] = React.useState({
         email: ''
     })
 
-    const handleRecover = (evt) => {
+    const handleRecover: FormEventHandler<HTMLFormElement> = (evt) => {
         evt.preventDefault();
+        // @ts-ignore
         dispatch(forgotPassword(value.email));
     }
 

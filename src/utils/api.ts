@@ -1,17 +1,19 @@
 import {getCookie} from "./cookie";
 
 class Api {
+    readonly baseUrl: string
+
     constructor (
-        baseUrl
+        baseUrl: string
     ) {
         this.baseUrl = baseUrl
     }
 
-    configureUrl (url) {
+    configureUrl (url: string) {
         return `${this.baseUrl}/${url}`
     }
 
-    makeRequest (url, method, body = null, additionalHeaders = {}) {
+    makeRequest (url: string, method: string, body: string | null = null, additionalHeaders = {}) {
         return fetch(
             this.configureUrl(url),
             {
@@ -23,7 +25,7 @@ class Api {
                 },
                 body: body
             }
-        ).then(response => {
+        ).then((response: Response) => {
             if (!response.ok) {
                 return Promise.reject(`Error: ${response.status}`)
             }
@@ -36,11 +38,11 @@ class Api {
         return this.makeRequest('ingredients', 'GET')
     }
 
-    getOrderDetails (ingredients) {
+    getOrderDetails (ingredients: string[]) {
         return this.makeRequest('orders', 'POST', JSON.stringify({ingredients: ingredients}))
     }
 
-    registration (name, email, password) {
+    registration (name: string, email: string, password: string) {
         return this.makeRequest(
             'auth/register',
             'POST',
@@ -51,7 +53,7 @@ class Api {
             }))
     }
 
-    authorization (email, password) {
+    authorization (email: string, password: string) {
         return this.makeRequest(
             'auth/login',
             'POST',
@@ -74,7 +76,7 @@ class Api {
         )
     }
 
-    forgot (email) {
+    forgot (email: string) {
         return this.makeRequest(
             'password-reset',
             'POST',
@@ -86,7 +88,7 @@ class Api {
         )
     }
 
-    reset (password, token) {
+    reset (password: string, token: string) {
         return this.makeRequest(
             'password-reset/reset',
             'POST',
@@ -122,7 +124,7 @@ class Api {
         )
     }
 
-    updateProfile (name, email, password) {
+    updateProfile (name: string, email: string, password: string) {
         return this.makeRequest(
             'auth/user',
             'PATCH',

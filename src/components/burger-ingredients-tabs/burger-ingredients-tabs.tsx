@@ -7,8 +7,8 @@ import {scrollIngredients, setActiveTab} from "../../services/actions/burger-ing
 export function BurgerIngredientsTabs() {
 
     const dispatch = useDispatch()
-    const current = useSelector(state => state.scrollIngredients.current)
-    const setCurrent = (value) => {
+    const current = useSelector((state: any) => state.scrollIngredients.current)
+    const setCurrent = (value: string) => {
         dispatch(setActiveTab(value))
         dispatch(scrollIngredients(value))
     }

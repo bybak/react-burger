@@ -12,16 +12,17 @@ import { useNavigate } from 'react-router-dom';
 import { getOrderDetails } from '../../services/actions/order-details';
 import { Modal } from '../modal/modal';
 import { OrderDetails } from '../order-details/order-details';
+import {TBurgerConstructorElement, TIngredientType, TItem} from "../../utils/types";
 
 export function BurgerConstructor() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const buns = useSelector(state => state.burgerConstructor.bunsList)
-    const main = useSelector(state => state.burgerConstructor.mainList)
-    const ingredients = useSelector(state => state.burgerIngredients.burgerIngredients);
-    const idIngredientsList = (ingredients.map((item) => item._id))
-    const authorization = useSelector((state) => state.userAuthorization.authorization);
+    const buns = useSelector((state: any) => state.burgerConstructor.bunsList)
+    const main = useSelector((state: any) => state.burgerConstructor.mainList)
+    const ingredients = useSelector((state: any) => state.burgerIngredients.burgerIngredients);
+    const idIngredientsList = (ingredients.map((item: TIngredientType) => item._id))
+    const authorization = useSelector((state: any) => state.userAuthorization.authorization);
 
     const [openModal, setOpenModal] = React.useState(false);
     const handleOrderClick = () => {
@@ -29,6 +30,7 @@ export function BurgerConstructor() {
             navigate('/login')
         } else {
             setOpenModal(!openModal)
+            // @ts-ignore
             dispatch(getOrderDetails(idIngredientsList))
         }
     }
@@ -38,10 +40,10 @@ export function BurgerConstructor() {
 
     const [, drop] = useDrop(() => ({
         accept: 'ingredient',
-        drop: (item => addElement(item.ingredient))
+        drop: ((item: TItem) => addElement(item.ingredient))
     }))
 
-    const addElement = (element) => {
+    const addElement = (element: TIngredientType) => {
         element = {...element, id: nanoid()}
         if (element.type === 'bun') {
             dispatch(setBun(element))
@@ -72,13 +74,13 @@ export function BurgerConstructor() {
                             isLocked={true}
                             text="Перетащите сюда булку"
                             thumbnail={logo}
-                            price="-"
+                            price={0}
                         />
                     </div>
                 }
 
                 <div className={style.saucesAndMain}>
-                    {main.length > 0 ? main.map((element, index) => {
+                    {main.length > 0 ? main.map((element: TIngredientType, index: number) => {
                         return (
                             <BurgerConstructorItem
                                 element={element}
@@ -92,7 +94,7 @@ export function BurgerConstructor() {
                             <ConstructorElement
                                 text="Перетащите сюда соус или начинку"
                                 thumbnail={logo}
-                                price="-"
+                                price={0}
                             />
                         </div>
                     )}
@@ -115,7 +117,7 @@ export function BurgerConstructor() {
                                 isLocked={true}
                                 text="Перетащите сюда булку"
                                 thumbnail={logo}
-                                price="-"
+                                price={0}
                             />
                         </div>
                 )}
