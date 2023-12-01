@@ -21,11 +21,9 @@
 }
 
 .profile {
-    display: grid;
-    grid-template-columns: 1fr max-content 1fr;
-    gap: 60px;
+    display: flex;
     width: 1240px;
-    margin: 120px auto;
+    margin: 0 auto;
 }
 
 .profile_button {
@@ -45,7 +43,7 @@
     flex-direction: column;
     align-items: center;
     max-width: 640px;
-    margin: 0 auto ;
+    margin: 0 auto;
 }
 
 .ingredient_info h2 {

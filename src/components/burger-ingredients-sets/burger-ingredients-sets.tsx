@@ -32,7 +32,7 @@ export function BurgerIngredientsSets() {
             mainRef.current
         ]
 
-        const observer = new IntersectionObserver((headings) => {
+        const observer = new IntersectionObserver((headings: IntersectionObserverEntry[]) => {
             headings.forEach(heading => {
                 if (heading.target === bunRef.current) {
                     dispatch(setActiveTab('bun'))

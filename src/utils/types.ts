@@ -1,4 +1,19 @@
 import { ReactNode } from "react";
+import {TUnionAction} from "../services/actions/interfaces";
+import {ActionCreator} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {configureStore} from "@reduxjs/toolkit";
+import {rootReducer} from "../services/reducers";
+
+const store = configureStore({
+    reducer: rootReducer
+})
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ActionCreator<
+    ThunkAction<ReturnType, RootState, never, TUnionAction>
+    >;
 
 export type TIngredientType = {
     _id: string,
@@ -16,6 +31,40 @@ export type TIngredientType = {
     id?: string,
 }
 
+export type TIngredientDetails = {
+    image_large?: string,
+    name?: string,
+    calories?: number,
+    proteins?: number,
+    fat?: number,
+    carbohydrates?: number
+}
+
+export type TUser = {
+    success: boolean,
+    user: {
+        name: string,
+        email: string,
+    }
+}
+
+export type TLocation = {
+    background: TLocation;
+    hash: string;
+    key: string;
+    pathname: string;
+    search: string;
+    from: string;
+    state: {
+        background?: {
+            pathname: string;
+            search: string;
+            hash: string;
+            key: string;
+        };
+    };
+}
+
 export type TItem = {
     id: string,
     ingredient: TIngredientType,
@@ -29,7 +78,8 @@ export type TBurgerIngredientsItem = {
 export type TBurgerConstructorElement = {
     element: TIngredientType,
     id: string | undefined,
-    index: number
+    index: number,
+    deleteElement: (element: TIngredientType) => void
 }
 
 export type TBurgerIngredientsSet = {
@@ -48,4 +98,32 @@ export type TModalOverlay = {
 
 export type TOrderRegistration = {
     handleOrderClick: () => void
+}
+
+export type TOrder = {
+    ingredients: Array<string>,
+    _id: string,
+    status: string,
+    number: number,
+    createdAt: string,
+    updatedAt: string,
+    name: string
+}
+
+export type TOrders = {
+    success: boolean,
+    orders: Array<TOrder>,
+    total: number,
+    totalToday: number
+}
+
+export type TOrderProps = {
+    order: TOrder
+}
+
+export type TOptionsDateFormat = {
+    timezone: 'Moscow',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZoneName: "short",
 }

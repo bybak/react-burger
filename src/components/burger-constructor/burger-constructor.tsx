@@ -4,7 +4,7 @@ import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-compon
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {nanoid} from "nanoid";
-import {addIngredient, setBun} from "../../services/actions/burger-constructor";
+import {addIngredient, deleteIngredient, setBun} from "../../services/actions/burger-constructor";
 import {BurgerConstructorItem} from "../burger-constructor-item/burger-constructor-item";
 import {MakeOrder} from "../make-order/make-order";
 import logo from '../../images/logo192.png'
@@ -20,14 +20,15 @@ export function BurgerConstructor() {
 
     const buns = useSelector((state: any) => state.burgerConstructor.bunsList)
     const main = useSelector((state: any) => state.burgerConstructor.mainList)
-    const ingredients = useSelector((state: any) => state.burgerIngredients.burgerIngredients);
-    const idIngredientsList = (ingredients.map((item: TIngredientType) => item._id))
+    const idMainList = (main.map((item: { _id: string; }) => item._id))
+    const idBunsList = (buns.map((item: { _id: string; }) => item._id))
+    const idIngredientsList = idMainList.concat(idBunsList).concat(idBunsList)
     const authorization = useSelector((state: any) => state.userAuthorization.authorization);
 
     const [openModal, setOpenModal] = React.useState(false);
     const handleOrderClick = () => {
         if (!authorization) {
-            navigate('/login')
+            navigate('/login?retpath=/')
         } else {
             setOpenModal(!openModal)
             // @ts-ignore
@@ -51,6 +52,10 @@ export function BurgerConstructor() {
         if (element.type === 'sauce' || element.type === 'main') {
             dispatch(addIngredient(element))
         }
+    }
+
+    const deleteElement = (element: TIngredientType) => {
+        dispatch(deleteIngredient(element))
     }
 
     return (
@@ -87,6 +92,7 @@ export function BurgerConstructor() {
                                 index={index}
                                 id={element.id}
                                 key={element.id}
+                                deleteElement={deleteElement}
                             />
                         )
                     }) : (

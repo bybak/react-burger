@@ -16,7 +16,10 @@ import { Main } from '../../pages/main';
 import { IngredientInfo } from '../../pages/ingredient-info';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { Feed } from '../../pages/feed';
+import { ProfileOrders } from '../../pages/profile-orders';
 import { useNavigate } from 'react-router-dom';
+import {OrderInfo} from "../../pages/order-info";
+import { ProfileOrderInfo } from '../../pages/profile-order-info';
 
 export default function App() {
 
@@ -48,7 +51,10 @@ export default function App() {
                 <Route path="/forgot-password" element={<ForgotPassword/>} />
                 <Route path="/reset-password" element={<ResetPassword/>} />
                 <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
+                <Route path="/profile/orders" element={<ProtectedRoute><ProfileOrders/></ProtectedRoute>} />
+                <Route path="/profile/orders/:id" element={<ProtectedRoute><ProfileOrderInfo/></ProtectedRoute>} />
                 <Route path="/feed" element={<ProtectedRoute><Feed/></ProtectedRoute>} />
+                <Route path="/feed/:id" element={<OrderInfo/>} />
                 <Route path="/ingredients/:id" element={<IngredientInfo />}/>
             </Routes>
 

@@ -4,8 +4,9 @@ import { UpdateProfileForm } from '../components/update-profile-form/update-prof
 import {useEffect} from "react";
 import {wsConnectionClosedUser, wsConnectionStartUser} from "../services/actions/websockets";
 import {useDispatch} from "react-redux";
+import {OrderHistory} from "../components/order-history/order-history";
 
-export function Profile() {
+export function ProfileOrders() {
 
     const dispatch = useDispatch();
 
@@ -19,7 +20,7 @@ export function Profile() {
     return (
         <section className={styles.profile}>
             <ProfileMenu />
-            <UpdateProfileForm/>
+            <OrderHistory />
         </section>
     )
 }
