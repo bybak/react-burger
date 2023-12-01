@@ -1,17 +1,65 @@
 import {getCookie} from "./cookie";
+import {TIngredientType} from "./types";
+
+type TServerResponse<T> = {
+    success: boolean;
+} & T;
+
+type TIngredientsResponse = TServerResponse<{
+    data: TIngredientType[];
+}>;
+
+type TOrderDetailsResponse = TServerResponse<{
+    name: string;
+    order: {number: number}
+}>;
+
+type TGetProfileResponse = TServerResponse<{
+    user: {
+        email: string
+        name: string
+    }
+}>
+
+type TLogoutResponse = TServerResponse<{
+    message: string
+}>
+
+type TPasswordResetResponse = TServerResponse<{
+    message: string
+}>
+
+type TRefreshTokenResponse = TServerResponse<{
+    refreshToken: string
+}>
+
+type TLoginAndRegisterResponse = TServerResponse<{
+    accessToken: string
+    refreshToken: string
+    user: {
+        email: string
+        name: string
+    }
+}>
 
 class Api {
+    readonly baseUrl: string
+
     constructor (
-        baseUrl
+        baseUrl: string
     ) {
         this.baseUrl = baseUrl
     }
 
-    configureUrl (url) {
+    configureUrl (url: string): string {
         return `${this.baseUrl}/${url}`
     }
 
-    makeRequest (url, method, body = null, additionalHeaders = {}) {
+    checkResponse <T>(res: Response): Promise<T> {
+        return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
+    };
+
+    makeRequest <T>(url: string, method: string, body: string | null = null, additionalHeaders = {}): Promise<T> {
         return fetch(
             this.configureUrl(url),
             {
@@ -23,25 +71,19 @@ class Api {
                 },
                 body: body
             }
-        ).then(response => {
-            if (!response.ok) {
-                return Promise.reject(`Error: ${response.status}`)
-            }
-
-            return response.json()
-        })
+        ).then(res => this.checkResponse<T>(res))
     }
 
     getIngredients () {
-        return this.makeRequest('ingredients', 'GET')
+        return this.makeRequest<TIngredientsResponse>('ingredients', 'GET')
     }
 
-    getOrderDetails (ingredients) {
-        return this.makeRequest('orders', 'POST', JSON.stringify({ingredients: ingredients}))
+    getOrderDetails (ingredients: string[]) {
+        return this.makeRequest<TOrderDetailsResponse>('orders', 'POST', JSON.stringify({ingredients: ingredients}))
     }
 
-    registration (name, email, password) {
-        return this.makeRequest(
+    registration (name: string, email: string, password: string) {
+        return this.makeRequest<TLoginAndRegisterResponse>(
             'auth/register',
             'POST',
             JSON.stringify({
@@ -51,8 +93,8 @@ class Api {
             }))
     }
 
-    authorization (email, password) {
-        return this.makeRequest(
+    authorization (email: string, password: string) {
+        return this.makeRequest<TLoginAndRegisterResponse>(
             'auth/login',
             'POST',
             JSON.stringify({
@@ -63,7 +105,7 @@ class Api {
     }
 
     logout () {
-        return this.makeRequest(
+        return this.makeRequest<TLogoutResponse>(
             'auth/logout',
             'POST',
             JSON.stringify(
@@ -74,8 +116,8 @@ class Api {
         )
     }
 
-    forgot (email) {
-        return this.makeRequest(
+    forgot (email: string) {
+        return this.makeRequest<TPasswordResetResponse>(
             'password-reset',
             'POST',
             JSON.stringify(
@@ -86,8 +128,8 @@ class Api {
         )
     }
 
-    reset (password, token) {
-        return this.makeRequest(
+    reset (password: string, token: string) {
+        return this.makeRequest<TPasswordResetResponse>(
             'password-reset/reset',
             'POST',
             JSON.stringify(
@@ -100,7 +142,7 @@ class Api {
     }
 
     refresh () {
-        return this.makeRequest(
+        return this.makeRequest<TRefreshTokenResponse>(
             'auth/token',
             'POST',
             JSON.stringify(
@@ -112,7 +154,7 @@ class Api {
     }
 
     getProfile () {
-        return this.makeRequest(
+        return this.makeRequest<TGetProfileResponse>(
             'auth/user',
             'GET',
             null,
@@ -122,8 +164,8 @@ class Api {
         )
     }
 
-    updateProfile (name, email, password) {
-        return this.makeRequest(
+    updateProfile (name: string, email: string, password: string) {
+        return this.makeRequest<TGetProfileResponse>(
             'auth/user',
             'PATCH',
             JSON.stringify(

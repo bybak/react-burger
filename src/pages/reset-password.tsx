@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FormEventHandler} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './pages.module.css';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -8,22 +8,22 @@ import { resetPassword } from '../services/actions/reset-password';
 export function ResetPassword() {
     const dispatch = useDispatch();
 
-    const forgot = useSelector((state) => state.forgotPassword.success);
-    const authorization = useSelector((state) => state.userAuthorization.authorization);
+    const forgot = useSelector((state: any) => state.forgotPassword.success);
+    const authorization = useSelector((state: any) => state.userAuthorization.authorization);
 
     const [value, setValue] = React.useState({
         password: '',
         token: ''
     })
 
-    const inputRef = React.useRef(null)
+    const inputRef = React.useRef<HTMLInputElement>(null)
     const onIconClick = () => {
-        setTimeout(() => inputRef.current.focus(), 0)
-        alert('Icon Click Callback')
+        setTimeout(() => inputRef.current?.focus(), 0)
     }
 
-    const handleReset = (evt) => {
+    const handleReset: FormEventHandler<HTMLFormElement> = (evt) => {
         evt.preventDefault();
+        // @ts-ignore
         dispatch(resetPassword(value.password, value.token));
     }
 

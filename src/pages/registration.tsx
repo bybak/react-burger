@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FormEventHandler} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './pages.module.css';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,7 +6,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { userRegistration } from '../services/actions/registration';
 
 export function Registration() {
-    const authorization = useSelector((state) => state.userAuthorization.authorization);
+    const authorization = useSelector((state: any) => state.userAuthorization.authorization);
 
     const dispatch = useDispatch();
     const [value, setValue] = React.useState({
@@ -15,13 +15,14 @@ export function Registration() {
         password: ''
     })
 
-    const handleRegistration = (evt) => {
+    const handleRegistration: FormEventHandler<HTMLFormElement> = (evt) => {
         evt.preventDefault();
+        // @ts-ignore
         dispatch(userRegistration(value.name, value.email, value.password));
     }
-    const inputRef = React.useRef(null)
+    const inputRef = React.useRef<HTMLInputElement>(null)
     const onIconClick = () => {
-        setTimeout(() => inputRef.current.focus(), 0)
+        setTimeout(() => inputRef.current?.focus(), 0)
     }
 
     if (authorization) {

@@ -6,12 +6,12 @@ import {setActiveTab} from "../../services/actions/burger-ingredients-scroll";
 
 export function BurgerIngredientsSets() {
     const dispatch = useDispatch()
-    const scroll = useSelector(state => state.scrollIngredients.scroll)
+    const scroll = useSelector((state: any) => state.scrollIngredients.scroll)
 
-    const bunRef = useRef()
-    const sauceRef = useRef()
-    const mainRef = useRef()
-    const scrollRef = useRef()
+    const bunRef = useRef<HTMLParagraphElement>(null)
+    const sauceRef = useRef<HTMLParagraphElement>(null)
+    const mainRef = useRef<HTMLParagraphElement>(null)
+    const scrollRef = useRef<HTMLParagraphElement>(null)
 
     useEffect(() => {
         let ref = bunRef
@@ -22,7 +22,7 @@ export function BurgerIngredientsSets() {
             ref = mainRef
         }
 
-        ref.current.scrollIntoView({behavior: 'smooth'})
+        ref.current?.scrollIntoView({behavior: 'smooth'})
     }, [scroll])
 
     useEffect(() => {
@@ -50,7 +50,7 @@ export function BurgerIngredientsSets() {
             rootMargin: '0px 0px -90% 0px'
         })
 
-        headings.forEach(heading => observer.observe(heading))
+        headings.forEach(heading => observer.observe(heading!))
     }, [dispatch])
 
     return (

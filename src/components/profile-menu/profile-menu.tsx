@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './profile-menu.module.css';
-import { NavLink, useHistory, Navigate } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import { userLogout } from '../../services/actions/logout';
 import { useDispatch, useSelector } from 'react-redux';
 
 export function ProfileMenu() {
     const dispatch = useDispatch();
-    const authorization = useSelector((state) => state.userAuthorization.authorization);
+    const authorization = useSelector((state: any) => state.userAuthorization.authorization);
 
     const handleLogout = React.useCallback(() => {
+        //@ts-ignore
         dispatch(userLogout());
     }, [dispatch])
 

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {FormEventHandler} from 'react';
 import styles from './update-profile-form.module.css';
-import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../services/actions/user';
 import { updateUser } from '../../services/actions/user';
@@ -8,10 +8,11 @@ import { updateUser } from '../../services/actions/user';
 export function UpdateProfileForm() {
 
     const dispatch = useDispatch();
-    const userName = useSelector(state => state.profile.user.name);
-    const userEmail = useSelector(state => state.profile.user.email);
+    const userName = useSelector((state: any) => state.profile.user.name);
+    const userEmail = useSelector((state: any) => state.profile.user.email);
 
     React.useEffect(() => {
+        // @ts-ignore
         dispatch(getUser());
     }, [dispatch])
 
@@ -29,8 +30,9 @@ export function UpdateProfileForm() {
         })
     }, [userName, userEmail])
 
-    const updateProfile = (evt) => {
+    const updateProfile: FormEventHandler<HTMLFormElement> = (evt) => {
         evt.preventDefault();
+        // @ts-ignore
         dispatch(updateUser(value.name, value.email, value.password));
     }
 
@@ -42,9 +44,9 @@ export function UpdateProfileForm() {
         })
     }
 
-    const inputRef = React.useRef(null)
+    const inputRef = React.useRef<HTMLInputElement>(null)
     const onIconClick = () => {
-        setTimeout(() => inputRef.current.focus(), 0)
+        setTimeout(() => inputRef.current?.focus(), 0)
     }
 
     return (

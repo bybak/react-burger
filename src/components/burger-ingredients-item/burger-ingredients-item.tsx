@@ -1,23 +1,24 @@
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients-item.module.css'
-import {ingredientsPropTypes} from "../../utils/propTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {addIngredientDetails} from "../../services/actions/ingredient-details";
 import {useDrag} from "react-dnd";
 import { Link, useLocation } from 'react-router-dom';
+import {FC} from "react";
+import {TBurgerIngredientsItem, TIngredientType} from "../../utils/types";
 
-export function BurgerIngredientsItem({ ingredient }) {
+export const BurgerIngredientsItem: FC<TBurgerIngredientsItem> = ({ ingredient }) => {
     const location = useLocation();
 
-    const buns = useSelector(state => state.burgerConstructor.bunsList)
-    const main = useSelector(state => state.burgerConstructor.mainList)
+    const buns = useSelector((state: any) => state.burgerConstructor.bunsList)
+    const main = useSelector((state: any) => state.burgerConstructor.mainList)
 
-    const counter = buns.filter((item) => item._id === ingredient._id).length * 2
-        || main.filter((item) => item._id === ingredient._id).length
+    const counter = buns.filter((item: TIngredientType) => item._id === ingredient._id).length * 2
+        || main.filter((item: TIngredientType) => item._id === ingredient._id).length
 
     const dispatch = useDispatch()
 
-    const handleIngredientClick = (ingredient) => {
+    const handleIngredientClick = (ingredient: TIngredientType) => {
         dispatch(addIngredientDetails(ingredient))
     }
 
@@ -49,8 +50,4 @@ export function BurgerIngredientsItem({ ingredient }) {
             </Link>
         </div>
     )
-}
-
-BurgerIngredientsItem.propTypes = {
-    ingredient: ingredientsPropTypes.isRequired,
 }

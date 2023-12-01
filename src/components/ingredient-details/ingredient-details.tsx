@@ -2,13 +2,14 @@ import style from './ingredient-details.module.css'
 import {useSelector} from "react-redux";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
+import {TIngredientType} from "../../utils/types";
 
 export function IngredientDetails() {
-    const ingredients = useSelector(state => state.burgerIngredients.burgerIngredients);
+    const ingredients = useSelector((state: any) => state.burgerIngredients.burgerIngredients);
 
     const { id } = useParams();
     const ingredient = useMemo(
-        () => ingredients.find(item => item._id === id),
+        () => ingredients.find((item: TIngredientType) => item._id === id),
         [ingredients, id],
     );
 
