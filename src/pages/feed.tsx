@@ -3,10 +3,10 @@ import styles from './pages.module.css';
 import { OrderFeed } from '../components/order-feed/order-feed';
 import { Orders } from '../components/orders/orders';
 import { wsConnectionStart, wsConnectionClosed } from '../services/actions/websockets';
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "../utils/hooks";
 
 export const Feed = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(wsConnectionStart());

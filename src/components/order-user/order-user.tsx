@@ -3,29 +3,29 @@ import styles from './order-user.module.css'
 import { useParams } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { dateWhen, dateFormat } from '../../utils/date';
-import {useSelector} from "react-redux";
+import {useAppSelector} from "../../utils/hooks";
 
 function inNotUndefined<T>(item: T | undefined): item is T {
     return item !== undefined
 }
 export const OrderUser = () => {
 
-    const ingredients = useSelector((store: any) => store.burgerIngredients.burgerIngredients);
-    const orders = useSelector((store: any) => store.webSocketUser.orders);
+    const ingredients = useAppSelector((store) => store.burgerIngredients.burgerIngredients);
+    const orders = useAppSelector((store) => store.webSocketUser.orders);
     const { id } = useParams<{ id: string }>();
     const order = React.useMemo(() => {
         return orders.find((order: { _id: string | undefined; }) => order._id === id)
     }, [orders, id])
 
-    const orderIngredientsForImage = ingredients.filter((ingredient: { _id: any; }) => order?.ingredients.includes(ingredient._id))
+    const orderIngredientsForImage = ingredients.filter((ingredient) => order?.ingredients.includes(ingredient._id))
 
     const orderIngredients =
-        order?.ingredients.map((id: any) => {
-            return ingredients.find((item: { _id: any; }) => item._id === id);
+        order?.ingredients.map((id) => {
+            return ingredients.find((item) => item._id === id);
         }).filter(inNotUndefined);
 
     const totalOrderPrice = orderIngredients?.reduce(
-        (acc: any, ingredient: { price: any; }) => acc + ingredient.price,
+        (acc, ingredient) => acc + ingredient.price,
         0
     );
 
@@ -43,12 +43,12 @@ export const OrderUser = () => {
             <p className={`${styles.title} text text_type_main-medium mt-15`}>Состав:</p>
             <ul className={styles.scroll}>
                 {orderIngredientsForImage!
-                    .map((item: any) =>
+                    .map((item) =>
                         <li className={styles.item} key={item._id}>
                             <img className={styles.image} src={item.image_mobile} alt={item.name} />
                             <p className={`${styles.text} text_type_main-default`}>{item.name}</p>
                             <p className={`${styles.price} text text_type_digits-default`}>
-                                {orderIngredients?.filter((i: { _id: any; }) => i._id === item._id).length} x {item.price} <CurrencyIcon type='primary' /></p>
+                                {orderIngredients?.filter((i) => i._id === item._id).length} x {item.price} <CurrencyIcon type='primary' /></p>
                         </li>
                     )}
 

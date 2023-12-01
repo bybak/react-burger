@@ -1,13 +1,13 @@
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredient-tabs.module.css'
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {scrollIngredients, setActiveTab} from "../../services/actions/burger-ingredients-scroll";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 
 export function BurgerIngredientsTabs() {
 
-    const dispatch = useDispatch()
-    const current = useSelector((state: any) => state.scrollIngredients.current)
+    const dispatch = useAppDispatch()
+    const current = useAppSelector((state) => state.scrollIngredients.current)
     const setCurrent = (value: string) => {
         dispatch(setActiveTab(value))
         dispatch(scrollIngredients(value))

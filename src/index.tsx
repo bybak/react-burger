@@ -23,6 +23,11 @@ const store = configureStore({
         .concat(socketMiddleware('wss://norma.nomoreparties.space/orders' + `?token=${getCookie('access')}`, wsActionsUser))
 })
 
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
+
 root.render(
     <Router>
         <React.StrictMode>

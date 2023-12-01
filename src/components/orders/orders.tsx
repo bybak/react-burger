@@ -1,9 +1,9 @@
 import styles from './orders.module.css';
-import {useSelector} from "react-redux";
+import {useAppSelector} from "../../utils/hooks";
 
 export function Orders() {
 
-    const { orders, total, totalToday } = useSelector((state: any) => state.webSocket)
+    const { orders, total, totalToday } = useAppSelector((state) => state.webSocket)
 
     return (
         <section className={`${styles.orders} ml-4 mt-25`}>
@@ -11,8 +11,8 @@ export function Orders() {
                 <div className={styles.title}>
                     <h3 className="text text_type_main-medium">Готовы:</h3>
                     <ul className={styles.list}>
-                        {orders && orders.slice(0, 30)
-                            .map((order: any) => {
+                        {orders && orders.slice(0, 10)
+                            .map((order) => {
                                 if (order.status === 'done') {
                                     return (
                                         <li key={order._id} className={`${styles.done} text text_type_digits-default`} >{order.number}</li>
@@ -24,7 +24,7 @@ export function Orders() {
                 <div className={styles.title}>
                     <h3 className="text text_type_main-medium">В работе:</h3>
                     <ul className={styles.list}>
-                        {orders.map((order: any) => {
+                        {orders.map((order) => {
                             if (order.status === 'pending') {
                                 return (
                                     <li key={order._id} className="text text_type_digits-default" >{order.number}</li>

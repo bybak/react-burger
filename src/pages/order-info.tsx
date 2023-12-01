@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import styles from './pages.module.css';
 import { Order } from '../components/order/order';
 import { wsConnectionStart,wsConnectionClosed } from '../services/actions/websockets';
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "../utils/hooks";
 
 export const OrderInfo = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(wsConnectionStart());

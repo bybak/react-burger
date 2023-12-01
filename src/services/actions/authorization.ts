@@ -1,6 +1,6 @@
 import { api } from "../../utils/api";
 import { setCookie } from "../../utils/cookie";
-import {Dispatch} from "redux";
+import {AppDispatch, RootState} from "../../index";
 
 export const USER_AUTHORIZATION_REQUEST = 'USER_AUTHORIZATION_REQUEST';
 export const USER_AUTHORIZATION_SUCCESS = 'USER_AUTHORIZATION_SUCCESS';
@@ -22,7 +22,7 @@ type TLoginAndRegisterResponse = TServerResponse<{
 const userAuthorizationSuccess = (payload: TLoginAndRegisterResponse) => ({ type: USER_AUTHORIZATION_SUCCESS, payload })
 
 export function userAuthorization(email: string, password: string) {
-    return (dispatch: Dispatch) => {
+    return (dispatch: AppDispatch) => {
         dispatch({type: USER_AUTHORIZATION_REQUEST})
         api.authorization(email, password)
             .then((data) => {

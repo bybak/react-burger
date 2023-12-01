@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { dateWhen, dateFormat } from '../../utils/date';
 import { TOrderProps } from '../../utils/types';
-import {useSelector} from "react-redux";
+import {useAppSelector} from "../../utils/hooks";
 
 function inNotUndefined<T>(item: T | undefined): item is T {
     return item !== undefined
@@ -14,14 +14,14 @@ export const OrderItem: FC<TOrderProps> = ({ order }) => {
 
     const location = useLocation();
 
-    const ingredients = useSelector((store: any) => store.burgerIngredients.burgerIngredients);
-    const orderIngredientsForImage = ingredients.filter((ingredient: { _id: any; }) => order.ingredients.includes(ingredient._id))
+    const ingredients = useAppSelector((store) => store.burgerIngredients.burgerIngredients);
+    const orderIngredientsForImage = ingredients.filter((ingredient) => order.ingredients.includes(ingredient._id))
     const orderIngredientsForTotal =
-        order.ingredients.map((id: any) => {
-            return ingredients.find((item: { _id: any; }) => item._id === id);
+        order.ingredients.map((id) => {
+            return ingredients.find((item) => item._id === id);
         }).filter(inNotUndefined);
     const totalOrderPrice = orderIngredientsForTotal.reduce(
-        (acc: any, ingredient: { price: any; }) => acc + ingredient.price,
+        (acc, ingredient) => acc + ingredient.price,
         0
     );
 
@@ -33,7 +33,9 @@ export const OrderItem: FC<TOrderProps> = ({ order }) => {
             <Link to={{
                 pathname: location.pathname === '/feed'  ? `/feed/${order._id}` : `/profile/orders/${order._id}`,
             }}
-                  className={styles.link}>
+                  state={{backgroundLocation: location}}
+                  className={styles.link}
+            >
                 <div className={styles.order}>
                     <p className="text text_type_digits-default">{order.number}</p>
                     <p className="text text_type_main-default text_color_inactive">
@@ -45,7 +47,7 @@ export const OrderItem: FC<TOrderProps> = ({ order }) => {
                     <ul className={styles.list}>
                         {orderIngredientsForImage
                             .slice(0, 6)
-                            .map((item: any) =>
+                            .map((item) =>
                                 <li className={styles.list_item} key={item._id}>
                                     <img className={styles.list_image} src={item.image_mobile} alt={item.name} /></li>
                             )}

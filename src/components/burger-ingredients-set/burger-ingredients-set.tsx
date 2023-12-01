@@ -1,11 +1,10 @@
-import {useSelector} from "react-redux";
 import {BurgerIngredientsItem} from "../burger-ingredients-item/burger-ingredients-item";
-import PropTypes from "prop-types";
 import {FC} from "react";
 import {TBurgerIngredientsSet, TIngredientType} from "../../utils/types";
+import {useAppSelector} from "../../utils/hooks";
 
 export const BurgerIngredientsSet: FC<TBurgerIngredientsSet> = ({type}) => {
-    const ingredients = useSelector((state: any) => state.burgerIngredients.burgerIngredients)
+    const ingredients = useAppSelector((state) => state.burgerIngredients.burgerIngredients)
     return (
         <>
             {ingredients.filter((ingredient: TIngredientType) => ingredient.type === type).map((ingredient: TIngredientType) => (
@@ -13,8 +12,4 @@ export const BurgerIngredientsSet: FC<TBurgerIngredientsSet> = ({type}) => {
             ))}
         </>
     )
-}
-
-BurgerIngredientsSet.propTypes = {
-    type: PropTypes.string.isRequired
 }

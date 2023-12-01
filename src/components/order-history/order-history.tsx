@@ -1,16 +1,16 @@
 import styles from './order-history.module.css';
 import { OrderItem } from '../order-item/order-item';
-import {useSelector} from "react-redux";
+import {useAppSelector} from "../../utils/hooks";
 
 export function OrderHistory() {
 
-    const orders = useSelector((state: any) => state.webSocketUser.orders)
+    const orders = useAppSelector((state) => state.webSocketUser.orders)
 
     return (
         <section>
             <ul className={`${styles.scroll} `}>
                 {orders.reverse()
-                    .map((order: any) =>
+                    .map((order) =>
                         <li key={order._id}>
                             <OrderItem order={order} />
                         </li>

@@ -2,15 +2,14 @@ import React, {FC} from 'react';
 import style from "../burger-constructor/burger-constructor.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useMemo} from "react";
-import { useSelector } from 'react-redux';
 import {TOrderRegistration} from "../../utils/types";
+import {useAppSelector} from "../../utils/hooks";
 
 export const MakeOrder: FC<TOrderRegistration> = ({ handleOrderClick }) => {
-    const buns = useSelector((state: any) => state.burgerConstructor.bunsList)
-    const main = useSelector((state: any) => state.burgerConstructor.mainList)
+    const buns = useAppSelector((state) => state.burgerConstructor.bunsList)
+    const main = useAppSelector((state) => state.burgerConstructor.mainList)
 
     const totalPrice = useMemo(() =>
-        // @ts-ignore
         buns.reduce((acc: number, {price}) => acc + price, 0) * 2 + main.reduce((acc: number, {price}) => acc + price, 0),
         [buns, main]
     )

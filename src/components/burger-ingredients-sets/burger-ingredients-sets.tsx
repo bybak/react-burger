@@ -1,12 +1,12 @@
 import style from './burger-ingredients-sets.module.css'
 import {BurgerIngredientsSet} from "../burger-ingredients-set/burger-ingredients-set";
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef} from "react";
 import {setActiveTab} from "../../services/actions/burger-ingredients-scroll";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 
 export function BurgerIngredientsSets() {
-    const dispatch = useDispatch()
-    const scroll = useSelector((state: any) => state.scrollIngredients.scroll)
+    const dispatch = useAppDispatch()
+    const scroll = useAppSelector((state) => state.scrollIngredients.scroll)
 
     const bunRef = useRef<HTMLParagraphElement>(null)
     const sauceRef = useRef<HTMLParagraphElement>(null)
@@ -69,7 +69,4 @@ export function BurgerIngredientsSets() {
             </div>
         </div>
     )
-}
-
-BurgerIngredientsSets.propTypes = {
 }
