@@ -31,11 +31,6 @@ export const Order = () => {
         0
     );
 
-    console.log(id)
-    console.log(order)
-    console.log(orderIngredients)
-
-
     let when = ''
     if (order) {
         when = dateWhen(new Date(order!.createdAt))

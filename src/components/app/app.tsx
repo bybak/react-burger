@@ -42,6 +42,10 @@ export default function App() {
         navigate('/feed')
     }, [dispatch])
 
+    const closeUserFeedModal = useCallback(() => {
+        navigate('/profile/orders')
+    }, [dispatch])
+
     return (
         <>
             <AppHeader />
@@ -71,6 +75,12 @@ export default function App() {
                     <Route path="/feed/:id" element={(
                         <Modal onClose={closeFeedModal} header='Детали заказа'>
                             <OrderInfo />
+                        </Modal>
+                    )}>
+                    </Route>
+                    <Route path="/profile/orders/:id" element={(
+                        <Modal onClose={closeUserFeedModal} header='Детали заказа'>
+                            <ProfileOrderInfo/>
                         </Modal>
                     )}>
                     </Route>

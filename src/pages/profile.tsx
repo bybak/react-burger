@@ -4,13 +4,14 @@ import { UpdateProfileForm } from '../components/update-profile-form/update-prof
 import {useEffect} from "react";
 import {wsConnectionClosedUser, wsConnectionStartUser} from "../services/actions/websockets";
 import {useAppDispatch} from "../utils/hooks";
+import {getCookie} from "../utils/cookie";
 
 export function Profile() {
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(wsConnectionStartUser());
+        dispatch(wsConnectionStartUser(`?token=${getCookie('access')}`));
         return () => {
             dispatch(wsConnectionClosedUser());
         };

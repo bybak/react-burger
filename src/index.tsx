@@ -20,7 +20,7 @@ const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()
         .concat(socketMiddleware('wss://norma.nomoreparties.space/orders/all', wsActions))
-        .concat(socketMiddleware('wss://norma.nomoreparties.space/orders' + `?token=${getCookie('access')}`, wsActionsUser))
+        .concat(socketMiddleware('wss://norma.nomoreparties.space/orders', wsActionsUser))
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

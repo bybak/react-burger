@@ -9,7 +9,7 @@ export const OrderInfo = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(wsConnectionStart());
+        dispatch(wsConnectionStart(''));
         return () => {
             dispatch(wsConnectionClosed());
         };

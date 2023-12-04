@@ -5,7 +5,13 @@ import {
 } from "../actions/order-details";
 import {TUnionAction} from "../actions/interfaces";
 
-export const initialState = {
+type TInitialState = {
+    id: number | null,
+    orderDetailsRequest: boolean,
+    orderDetailsFailure: boolean
+}
+
+export const initialState: TInitialState = {
     id: null,
     orderDetailsRequest: false,
     orderDetailsFailure: false

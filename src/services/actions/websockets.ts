@@ -25,9 +25,10 @@ import {
     IWsActions
 } from "./interfaces";
 
-export const wsConnectionStart = (): IWsConnectionStart => {
+export const wsConnectionStart = (payload: string): IWsConnectionStart => {
     return {
-        type: WS_CONNECTION_START
+        type: WS_CONNECTION_START,
+        payload
     };
 };
 
@@ -56,9 +57,10 @@ export const wsGetOrderds = (payload: TOrders): IWsGetOrders => {
     };
 };
 
-export const wsConnectionStartUser = (): IWsConnectionStartUser => {
+export const wsConnectionStartUser = (payload: string): IWsConnectionStartUser => {
     return {
-        type: WS_CONNECTION_START_USER
+        type: WS_CONNECTION_START_USER,
+        payload
     };
 };
 

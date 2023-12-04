@@ -9,7 +9,7 @@ export const Feed = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(wsConnectionStart());
+        dispatch(wsConnectionStart(''));
         return () => {
             dispatch(wsConnectionClosed());
         };

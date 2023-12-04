@@ -11,7 +11,7 @@ export const socketMiddleware = (url: string, actions: IWsActions): Middleware =
                 const { type, payload } = action;
                 const { wsInit, onOpen, onClose, onError, onOrders } = actions;
                 if (type === wsInit) {
-                    socket = new WebSocket(`${url}`);
+                    socket = new WebSocket(`${url}${payload}`);
                     if (socket) {
                         socket.onopen = () => {
                             dispatch({ type: onOpen });

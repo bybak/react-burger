@@ -123,6 +123,7 @@ export interface IUpdateUserSuccess {
 
 export interface IWsConnectionStart {
     readonly type: typeof WS_CONNECTION_START
+    readonly payload: string
 }
 
 export interface IWsConnectionSuccess {
@@ -144,6 +145,7 @@ export interface IWsGetOrders {
 
 export interface IWsConnectionStartUser {
     readonly type: typeof WS_CONNECTION_START_USER
+    readonly payload: string
 }
 
 export interface IWsConnectionSuccessUser {
