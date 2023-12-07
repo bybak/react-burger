@@ -20,6 +20,8 @@ import { useNavigate } from 'react-router-dom';
 import {OrderInfo} from "../../pages/order-info";
 import { ProfileOrderInfo } from '../../pages/profile-order-info';
 import {useAppDispatch} from "../../utils/hooks";
+import {FeedDetails} from "../../pages/feed-details";
+import {HistoryDetails} from "../../pages/history-details";
 
 export default function App() {
 
@@ -58,9 +60,9 @@ export default function App() {
                 <Route path="/reset-password" element={<ResetPassword/>} />
                 <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
                 <Route path="/profile/orders" element={<ProtectedRoute><ProfileOrders/></ProtectedRoute>} />
-                <Route path="/profile/orders/:id" element={<ProtectedRoute><ProfileOrderInfo/></ProtectedRoute>} />
+                <Route path="/profile/orders/:id" element={<ProtectedRoute><HistoryDetails/></ProtectedRoute>} />
                 <Route path="/feed" element={<Feed/>} />
-                <Route path="/feed/:id" element={<OrderInfo/>} />
+                <Route path="/feed/:id" element={<FeedDetails/>} />
                 <Route path="/ingredients/:id" element={<IngredientInfo />}/>
             </Routes>
 
