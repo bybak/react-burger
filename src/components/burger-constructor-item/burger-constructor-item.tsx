@@ -1,15 +1,15 @@
 import {FC, useRef} from "react";
-import {useDispatch} from "react-redux";
 import {deleteIngredient, moveIngredient} from "../../services/actions/burger-constructor";
 import {useDrag, useDrop} from "react-dnd";
 import style from "../burger-constructor-item/burger-constructor-item.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TBurgerConstructorElement, TIngredientType} from "../../utils/types";
 import { Identifier } from "dnd-core";
+import {useAppDispatch} from "../../utils/hooks";
 
 export const BurgerConstructorItem: FC<TBurgerConstructorElement> = ({element, id, index}) => {
     const ref = useRef(null)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const moveCard = (start: number, end: number) => {
         dispatch(moveIngredient(start, end))

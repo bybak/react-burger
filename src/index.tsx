@@ -7,14 +7,26 @@ import {Provider} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 import {rootReducer} from "./services/reducers";
 import { BrowserRouter as Router } from 'react-router-dom';
+import {socketMiddleware} from "./services/middleware/socket-middleware";
+import {wsUrl} from "./utils/constants";
+import { wsActions, wsActionsUser } from "./services/actions/websockets";
+import {getCookie} from "./utils/cookie";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 const store = configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+        .concat(socketMiddleware('wss://norma.nomoreparties.space/orders/all', wsActions))
+        .concat(socketMiddleware('wss://norma.nomoreparties.space/orders', wsActionsUser))
 })
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
 
 root.render(
     <Router>

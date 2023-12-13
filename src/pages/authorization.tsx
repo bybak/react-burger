@@ -2,14 +2,14 @@ import React, {FormEventHandler, useEffect} from 'react';
 import styles from './pages.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { userAuthorization } from '../services/actions/authorization';
+import {useAppDispatch, useAppSelector} from "../utils/hooks";
 
 export function Authorization() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const authorization = useSelector((state: any) => state.userAuthorization.authorization);
+    const authorization = useAppSelector((state) => state.userAuthorization.authorization);
 
     const [value, setValue] = React.useState({
         email: '',
@@ -18,7 +18,6 @@ export function Authorization() {
 
     const handleAuthorization: FormEventHandler<HTMLFormElement> = (evt) => {
         evt.preventDefault();
-        // @ts-ignore
         dispatch(userAuthorization(value.email, value.password));
     }
 

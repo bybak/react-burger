@@ -10,6 +10,3 @@ export function BurgerIngredients() {
         </section>
     )
 }
-
-BurgerIngredients.propTypes = {
-}

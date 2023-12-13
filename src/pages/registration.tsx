@@ -1,14 +1,14 @@
 import React, {FormEventHandler} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styles from './pages.module.css';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate } from 'react-router-dom';
 import { userRegistration } from '../services/actions/registration';
+import {useAppDispatch, useAppSelector} from "../utils/hooks";
 
 export function Registration() {
-    const authorization = useSelector((state: any) => state.userAuthorization.authorization);
+    const authorization = useAppSelector((state) => state.userAuthorization.authorization);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [value, setValue] = React.useState({
         name: '',
         email: '',
@@ -17,7 +17,6 @@ export function Registration() {
 
     const handleRegistration: FormEventHandler<HTMLFormElement> = (evt) => {
         evt.preventDefault();
-        // @ts-ignore
         dispatch(userRegistration(value.name, value.email, value.password));
     }
     const inputRef = React.useRef<HTMLInputElement>(null)

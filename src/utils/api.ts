@@ -79,7 +79,15 @@ class Api {
     }
 
     getOrderDetails (ingredients: string[]) {
-        return this.makeRequest<TOrderDetailsResponse>('orders', 'POST', JSON.stringify({ingredients: ingredients}))
+        return this.makeRequest<TOrderDetailsResponse>(
+            'orders',
+            'POST',
+            JSON.stringify({ingredients: ingredients}),
+            {
+                authorization: 'Bearer ' + getCookie('access'),
+                'Content-Type': 'application/json'
+            },
+        )
     }
 
     registration (name: string, email: string, password: string) {
