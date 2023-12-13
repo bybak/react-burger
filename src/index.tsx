@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 import {rootReducer} from "./services/reducers";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import {socketMiddleware} from "./services/middleware/socket-middleware";
 import {wsUrl} from "./utils/constants";
 import { wsActions, wsActionsUser } from "./services/actions/websockets";

@@ -12,7 +12,7 @@ export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
 
-const getUserSuccess = (payload: TUser) => ({ type: GET_USER_SUCCESS, payload})
+export const getUserSuccess = (payload: TUser) => ({ type: GET_USER_SUCCESS, payload})
 
 export function getUser() {
     return (dispatch: AppDispatch) => {
@@ -27,7 +27,7 @@ export function getUser() {
     }
 }
 
-const updateUserSuccess = (payload: TUser) => ({ type: UPDATE_USER_SUCCESS, payload })
+export const updateUserSuccess = (payload: TUser) => ({ type: UPDATE_USER_SUCCESS, payload })
 
 export function updateUser(name: string, email: string, password: string) {
     return (dispatch: AppDispatch) => {
