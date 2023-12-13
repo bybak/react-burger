@@ -19,12 +19,6 @@ export const initialState: TInitialState = {
 
 export const orderDetailsReducer = (state = initialState, action: TUnionAction) => {
     switch (action.type) {
-        // case GET_ORDER_DETAILS_REQUEST: {
-        //     return {
-        //         ...state,
-        //         orderDetailsRequest: true
-        //     }
-        // }
         case GET_ORDER_DETAILS_SUCCESS: {
             return {
                 ...state,
@@ -33,13 +27,6 @@ export const orderDetailsReducer = (state = initialState, action: TUnionAction) 
                 orderDetailsFailure: false
             }
         }
-        // case GET_ORDER_DETAILS_FAILURE: {
-        //     return {
-        //         ...state,
-        //         orderDetailsRequest: false,
-        //         orderDetailsFailure: true
-        //     }
-        // }
         default: {
             return state
         }

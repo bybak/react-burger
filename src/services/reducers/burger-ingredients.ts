@@ -20,12 +20,6 @@ export const initialState: TInitialState = {
 
 export const burgerIngredientsReducer = (state = initialState, action: TUnionAction) => {
     switch (action.type) {
-        // case GET_BURGER_INGREDIENTS_REQUEST: {
-        //     return {
-        //         ...state,
-        //         burgerIngredientsRequest: true
-        //     }
-        // }
         case GET_BURGER_INGREDIENTS_SUCCESS: {
             return {
                 ...state,
@@ -34,13 +28,6 @@ export const burgerIngredientsReducer = (state = initialState, action: TUnionAct
                 burgerIngredientsFailure: false
             }
         }
-        // case GET_BURGER_INGREDIENTS_FAILURE: {
-        //     return {
-        //         ...state,
-        //         burgerIngredientsRequest: false,
-        //         burgerIngredientsFailure: true
-        //     }
-        // }
         default: {
             return state
         }
